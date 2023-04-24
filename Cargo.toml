@@ -1,0 +1,11 @@
+[package]
+version = "0.1.0"
+name = "shoudev-site"
+edition = "2021"
+
+[dev-dependencies]
+wasm-bindgen-test = "0.3.18"
+
+[dependencies]
+lazy_static = "1.4.0"
+seed = "0.8.0"
