@@ -9,3 +9,7 @@ wasm-bindgen-test = "0.3.18"
 [dependencies]
 lazy_static = "1.4.0"
 seed = "0.8.0"
+
+[profile.release]
+lto = true
+

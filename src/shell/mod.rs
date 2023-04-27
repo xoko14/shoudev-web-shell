@@ -1,3 +1,5 @@
+mod files;
+
 #[derive(Debug)]
 pub struct ShellError(String);
 
