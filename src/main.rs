@@ -11,6 +11,7 @@ use crate::statics::{SHELL_PROMPT, SHELL_STATUS};
 
 mod shell;
 mod statics;
+mod lang;
 
 fn init(_: Url, orders: &mut impl Orders<Msg>) -> Model {
     orders.stream(streams::window_event(Ev::KeyDown, |event| {

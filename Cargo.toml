@@ -9,6 +9,8 @@ wasm-bindgen-test = "0.3.18"
 [dependencies]
 lazy_static = "1.4.0"
 seed = "0.8.0"
+serde = { version = "1.0.166", features = ["derive"] }
+toml = "0.7.5"
 
 [profile.release]
 lto = true

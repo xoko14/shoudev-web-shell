@@ -1,5 +1,7 @@
 use core::fmt;
 
+use crate::{t, chlang, lang::Lang};
+
 pub mod files;
 
 #[derive(Debug)]
@@ -20,7 +22,8 @@ pub fn execute(command: &str) -> String {
         "help" => help(args),
         "ls" => files::ls(args),
         "cat" => files::cat(args),
-        _ => Ok("no command found".to_owned()),
+        "chlang" => lang(args),
+        _ => Ok(t!("no-cmd")),
     };
 
     match result {
@@ -31,7 +34,7 @@ pub fn execute(command: &str) -> String {
 
 fn echo(args: Vec<&str>) -> ShellResult {
     if args.len() == 0 {
-        return Ok("<span class=red>No arguments given.</span>".to_owned());
+        return Ok(format!("<span class=red>{}</span>", t!("no-args")));
     }
     let msg = args.join(" ");
     Ok(msg)
@@ -50,6 +53,22 @@ Avaliable commands:"#
 
 fn help_entry(command: &str, desc: &str) -> String {
     format!("<span class=orange>{}</span> - {}", command, desc)
+}
+
+fn lang(args: Vec<&str>) -> ShellResult {
+    if args.len() == 0 {
+        return Ok(format!("<span class=red>{}</span>", t!("no-args")));
+    }
+    let lang = match args[0] {
+        "en" => Lang::En,
+        "gl" => Lang::Gl,
+        "es" => Lang::Es,
+        _ => return Ok(t!("chlang-not-found"))
+    };
+
+    chlang!(lang);
+
+    Ok(t!("chlang-done"))
 }
 
 impl From<fmt::Error> for ShellError {

@@ -1,0 +1,26 @@
+[en]
+no-cmd = "no command found"
+no-args = "No arguments given."
+shoudev-cmd-prompt = "shoudev site command prompt"
+help-desc-s = "shows help message"
+echo-desc-s = "repeats text"
+chlang-done = "Done!"
+chalng-notfound = "Language not avaliable."
+
+[gl]
+no-cmd = "non se atopou o comando"
+no-args = "Non se indicaron argumentos."
+shoudev-cmd-prompt = "consola do portal web de shoudev"
+help-desc-s = "mostra unha mensaxe de axuda"
+echo-desc-s = "repite texto"
+chlang-done = "Feito!"
+chalng-notfound = "Idioma non dispoñible."
+
+[es]
+no-cmd = "no se encontró el comando"
+no-args = "No se indicaron argumentos."
+shoudev-cmd-prompt = "consola del portal web de shoudev"
+help-desc-s = "muestra un mensaje de ayuda"
+echo-desc-s = "repite texto"
+chlang-done = "Hecho!"
+chalng-notfound = "Idioma no disponible."
