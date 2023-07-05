@@ -1,5 +1,8 @@
 use seed::{
-    prelude::{web_sys::KeyboardEvent, *},
+    prelude::{
+        web_sys::{Event, HtmlInputElement, KeyboardEvent},
+        *,
+    },
     *,
 };
 use statics::LOGO;
@@ -9,12 +12,17 @@ use crate::statics::{SHELL_PROMPT, SHELL_STATUS};
 mod shell;
 mod statics;
 
-fn init(_: Url, _: &mut impl Orders<Msg>) -> Model {
+fn init(_: Url, orders: &mut impl Orders<Msg>) -> Model {
+    orders.stream(streams::window_event(Ev::KeyDown, |event| {
+                        Msg::KeyPressed(event.unchecked_into())
+                    }));
+
     Model {
         buffer: LOGO.to_owned(),
         input: String::new(),
         cursor_pos: 0usize,
         cursor_buffer: "█".to_owned(),
+        input_element: Default::default(),
     }
 }
 
@@ -23,11 +31,13 @@ struct Model {
     input: String,
     cursor_pos: usize,
     cursor_buffer: String,
+    input_element: ElRef<HtmlInputElement>,
 }
 
 #[derive(Clone)]
 enum Msg {
     KeyPressed(KeyboardEvent),
+    WindowClicked(Event),
 }
 
 fn update(msg: Msg, model: &mut Model, _: &mut impl Orders<Msg>) {
@@ -84,6 +94,8 @@ fn update(msg: Msg, model: &mut Model, _: &mut impl Orders<Msg>) {
                 }
             }
         },
+
+        Msg::WindowClicked(_) => {}
     }
 }
 
@@ -102,10 +114,11 @@ fn view(model: &Model) -> Node<Msg> {
                     C!["inputholder"],
                     pre![&model.input, C!["input"]],
                     pre![&model.cursor_buffer, C!["cursor"]]
-                ]
+                ],
+                input![C!["inexistant"], el_ref(&model.input_element)]
             ],
         ],
-        keyboard_ev(Ev::KeyDown, Msg::KeyPressed)
+        ev(Ev::Click, Msg::WindowClicked)
     ]
 }
 
