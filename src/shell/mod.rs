@@ -1,4 +1,6 @@
-mod files;
+use core::fmt;
+
+pub mod files;
 
 #[derive(Debug)]
 pub struct ShellError(String);
@@ -16,6 +18,8 @@ pub fn execute(command: &str) -> String {
     let result: ShellResult = match executable {
         "echo" => echo(args),
         "help" => help(args),
+        "ls" => files::ls(args),
+        "cat" => files::cat(args),
         _ => Ok("no command found".to_owned()),
     };
 
@@ -46,4 +50,10 @@ Avaliable commands:"#
 
 fn help_entry(command: &str, desc: &str) -> String {
     format!("<span class=orange>{}</span> - {}", command, desc)
+}
+
+impl From<fmt::Error> for ShellError {
+    fn from(_: fmt::Error) -> Self {
+        ShellError("error".to_owned())
+    }
 }
